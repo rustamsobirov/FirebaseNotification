@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +18,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         loadFCMToken()
         navigate(intent)
+        FirebaseAnalytics.getInstance(this)
+
+        Firebase.messaging.subscribeToTopic("all").addOnCompleteListener { task ->
+            Log.e("AAA", "subscribe: ${task.isSuccessful}")
+        }
+        Firebase.messaging.subscribeToTopic("user").addOnCompleteListener { task ->
+            Log.e("AAA", "subscribe: ${task.isSuccessful}")
+        }
     }
 
     private fun loadFCMToken() {

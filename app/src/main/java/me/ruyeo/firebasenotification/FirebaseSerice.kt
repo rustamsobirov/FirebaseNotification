@@ -28,7 +28,7 @@ import kotlin.random.Random
 private const val CHANNEL_ID = "my_channel"
 
 class FirebaseSerice : FirebaseMessagingService() {
-    
+
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         val type = message.data["type"]
